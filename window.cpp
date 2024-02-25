@@ -1,4 +1,6 @@
 #include "window.hpp"
+#include "keyHandler.hpp"
+#include "editText.hpp"
 
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
 {
@@ -57,6 +59,11 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 OnResize(hwnd, (UINT) wParam, width, height);
             }
             break;
+        case WM_KEYDOWN:
+            {
+                keyHandler(hwnd, wParam);
+                break;
+            }
         case WM_CLOSE:
             DestroyWindow(hwnd);
             break;
@@ -71,14 +78,17 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 void OnResize(HWND hwnd, UINT flag, int width, int height)
 {
-    PAINTSTRUCT paints;
-    HDC hdc = BeginPaint(hwnd, &paints);
-
+    /*PAINTSTRUCT paints;
     RECT rect;
+    HDC hdc = BeginPaint(hwnd, &paints);
     GetClientRect(hwnd, &rect);
 
     //FillRect(hdc, &paints.rcPaint, (HBRUSH) (COLOR_WINDOW+1));
-    DrawText(hdc, "hello", 5, &rect, DT_CENTER);
-    EndPaint(hwnd, &paints);
+    DrawText(hdc, "hi", 2, &rect, DT_CENTER);
+
+    updateText(hwnd);  
+
+    EndPaint(hwnd, &paints);*/
+    updateText(hwnd);
 
 }
