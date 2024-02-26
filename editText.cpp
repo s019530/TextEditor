@@ -1,4 +1,5 @@
 #include "editText.hpp"
+#include "keyHandler.hpp"
 
 
 
@@ -20,9 +21,8 @@ void updateText(HWND hwnd){
     
     LPCSTR text = maintext.c_str();
     int length = std::size(maintext);
-
-
-    DrawText(paints.hdc, text, length, &rect, DT_CENTER);
+                    
+    DrawText(paints.hdc, text, length, &rect, 0);
 
 
 
@@ -36,6 +36,7 @@ void keyInput(HWND hwnd, char key, kindOfInput inp)
     {
         case(REGULARKEYINPUT):
             {
+                std::cout << std::to_string(heldKey) << std::endl;
                 maintext.push_back(key);
                 break;
             }
@@ -45,12 +46,12 @@ void keyInput(HWND hwnd, char key, kindOfInput inp)
                 break;
             
             }
-        case(MODIFYINPUT):
-            {
-                break;
-            }
         default:
             break;
     }
     updateText(hwnd);
+}
+
+bool isKeyDown(int key){
+    return (GetAsyncKeyState(key) & 0x8000) != 0;
 }

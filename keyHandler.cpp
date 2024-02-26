@@ -4,13 +4,8 @@
 
 void keyHandler(HWND hwnd, WPARAM wParam)
 {
-    std::cout << wParam << std::endl;
     switch(wParam)
     {
-        case(VK_SHIFT):
-            std::cout << "shift";
-            keyInput(hwnd, char(LOWORD(wParam)), MODIFYINPUT);
-            break;
         case(0x08): //delete key
             keyInput(hwnd, char(LOWORD(wParam)), DELETEINPUT);
             break;
@@ -33,8 +28,16 @@ char translateKey(WPARAM wParam)
 
     int num = wParam;
 
-
-    if(typedChars.find(num) != typedChars.end())
+    if(isKeyDown(VK_SHIFT))
+    {
+        char c = capsChars[num];
+        return c;
+    }
+    else if(isKeyDown(VK_CONTROL))
+    {
+        return ' ';
+    }
+    else if(typedChars.find(num) != typedChars.end())
     {
         char c = typedChars[num];
         return c;

@@ -6,10 +6,10 @@
 typedef enum kindOfInput{
     REGULARKEYINPUT,
     DELETEINPUT,
-    MODIFYINPUT,
-    EXTRA
 } kindOfInput;
 
 
 void updateText(HWND hwnd);
 void keyInput(HWND hwnd, char key, kindOfInput inp);
+
+bool isKeyDown(int key);
