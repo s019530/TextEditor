@@ -31,7 +31,6 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR pCmdLine, int
     );
     if(hWnd == 0)
     {
-        std::cout << std::to_string(GetLastError());
         return 0;
     }
 
@@ -52,11 +51,14 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch(uMsg)
     {
+        case WM_CREATE:
+            {
+                drawBackground(hwnd);
+            }
         case WM_SIZE:
             {
-                int width = LOWORD(lParam);
-                int height = HIWORD(lParam);
-                OnResize(hwnd, (UINT) wParam, width, height);
+                drawBackground(hwnd);
+                updateText(hwnd);
             }
             break;
         case WM_KEYDOWN:
@@ -74,21 +76,4 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
     return 0;
-}
-
-void OnResize(HWND hwnd, UINT flag, int width, int height)
-{
-    /*PAINTSTRUCT paints;
-    RECT rect;
-    HDC hdc = BeginPaint(hwnd, &paints);
-    GetClientRect(hwnd, &rect);
-
-    //FillRect(hdc, &paints.rcPaint, (HBRUSH) (COLOR_WINDOW+1));
-    DrawText(hdc, "hi", 2, &rect, DT_CENTER);
-
-    updateText(hwnd);  
-
-    EndPaint(hwnd, &paints);*/
-    updateText(hwnd);
-
 }

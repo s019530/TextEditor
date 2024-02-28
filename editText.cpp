@@ -7,21 +7,22 @@ std::string maintext = "def";
 
 void updateText(HWND hwnd){
 
-
     InvalidateRect(hwnd, NULL, false);
 
 
     PAINTSTRUCT paints;
     RECT rect;
+
+    
     
     BeginPaint(hwnd, &paints);
     GetClientRect(hwnd, &rect);
 
-    FillRect(paints.hdc, &paints.rcPaint, (HBRUSH) (COLOR_WINDOW+1));
-    
     LPCSTR text = maintext.c_str();
     int length = std::size(maintext);
-                    
+
+    SetBkMode(paints.hdc, TRANSPARENT);
+
     DrawText(paints.hdc, text, length, &rect, 0);
 
 
@@ -36,7 +37,6 @@ void keyInput(HWND hwnd, char key, kindOfInput inp)
     {
         case(REGULARKEYINPUT):
             {
-                std::cout << std::to_string(heldKey) << std::endl;
                 maintext.push_back(key);
                 break;
             }
@@ -54,4 +54,24 @@ void keyInput(HWND hwnd, char key, kindOfInput inp)
 
 bool isKeyDown(int key){
     return (GetAsyncKeyState(key) & 0x8000) != 0;
+}
+
+
+void drawBackground(HWND hwnd)
+{
+    InvalidateRect(hwnd, NULL, false);
+
+    PAINTSTRUCT paints;
+
+    BeginPaint(hwnd, &paints);
+    
+    FillRect(paints.hdc, &paints.rcPaint, CreateSolidBrush(RGB(151,213, 232)));
+
+    for(long i = 15; i <= paints.rcPaint.bottom; i += 15)
+    {
+        Rectangle(paints.hdc, paints.rcPaint.left, i, paints.rcPaint.right, i+1);
+    }
+    
+    EndPaint(hwnd, &paints);
+
 }
