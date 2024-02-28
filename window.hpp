@@ -7,4 +7,4 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR pCmdLine, int
 
 LRESULT CALLBACK MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-void OnResize(HWND hwnd, UINT flag, int width, int height);
+void toolBarCreater(HWND hwnd);

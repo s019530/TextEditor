@@ -53,10 +53,12 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
         case WM_CREATE:
             {
+                toolBarCreater(hwnd);
                 drawBackground(hwnd);
             }
         case WM_SIZE:
             {
+                toolBarCreater(hwnd);
                 drawBackground(hwnd);
                 updateText(hwnd);
             }
@@ -76,4 +78,20 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
     return 0;
+}
+
+
+void toolBarCreater(HWND hwnd)
+{
+    InvalidateRect(hwnd, NULL, false);
+
+    PAINTSTRUCT paints;
+
+    BeginPaint(hwnd, &paints);
+    
+
+    SetBkColor(paints.hdc, RGB(250,250,250));
+    Rectangle(paints.hdc, 0, 0, paints.rcPaint.right, 45);
+    
+    EndPaint(hwnd, &paints);
 }

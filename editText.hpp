@@ -10,6 +10,8 @@ typedef enum kindOfInput{
 } kindOfInput;
 
 
+
+
 void updateText(HWND hwnd);
 void keyInput(HWND hwnd, char key, kindOfInput inp);
 
